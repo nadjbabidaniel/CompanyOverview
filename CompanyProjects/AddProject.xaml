@@ -1,0 +1,69 @@
+﻿<Window x:Class="CompanyProjects.AddProject"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CompanyProjects"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        Background="AliceBlue"
+        FocusManager.FocusedElement="{Binding ElementName=textBox}"
+        Title="Dodaj Novi Projekat" Height="400" Width="400" WindowStartupLocation="CenterScreen">
+    <Grid Width="Auto" Height="Auto">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35*"/>
+            <RowDefinition Height="35*"/>
+            <RowDefinition Height="35*"/>
+            <RowDefinition Height="35*"/>
+            <RowDefinition Height="35*"/>
+            <RowDefinition Height="35*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Width="Auto" Height="30">
+            <Label Content="Kompanija:" Width="150" Height="44" />
+            <TextBlock Text="{Binding FileName}" Margin="0,5,0,0" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="textBlock" VerticalAlignment="Center" HorizontalAlignment="Left" Height="30" Width="200" FontWeight="Bold"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Width="Auto" Height="40">
+            <Label Content="Naslov Projekta:*" Width="150" Height="44" />
+            <TextBox x:Name="textBox" AcceptsReturn="True" Text="{Binding TitleProject, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ToolTip="Unesite Naslov Projekta" Height="40" TextWrapping="Wrap" Width="122" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Width="Auto" Height="40">
+            <Label Content="Opis Projekta:*" Width="150" Height="44"/>
+            <TextBox x:Name="textBox2" AcceptsReturn="True" Grid.Row="1" Text="{Binding TextProject,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ToolTip="Unesite Opis Projekta" VerticalAlignment="Bottom" Height="40" TextWrapping="Wrap" Width="172"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Orientation="Horizontal" Width="Auto" Height="30">
+            <Label Content="Unesite Pocetni Datum:*" Width="150" Height="44" />
+            <DatePicker SelectedDate="{Binding StartDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ToolTip="Unesite Pocetni Datum" Width="100" Height="22"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="4" Orientation="Horizontal" Width="Auto" Height="30">
+            <Label Content="Unesite Krajnji Datum:" Width="150" Height="44" />
+            <DatePicker SelectedDate="{Binding EndDate, Mode=TwoWay}" ToolTip="Unesite Krajnji Datum" Grid.Row="4" Width="100" Height="22" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center" Width="Auto" Height="30">
+            <Button  Grid.Row="5" x:Name="button2" Content="Kreiraj Novi Projekat" Command="{Binding SaveProjectCommand}" Width="124" Height="30" IsDefault="True" FontWeight="Bold">
+            <Button.Effect>
+                <DropShadowEffect Color="Gray"
+                              Opacity=".50"
+                              ShadowDepth="8" />
+            </Button.Effect>
+            </Button>
+            <Button Content="Odustani" Grid.Row="4" Grid.Column="1"
+                    Command="{Binding CloseWindowCommand}"
+                    HorizontalAlignment="Center"
+                    Margin="25,0,-45,0"
+                VerticalAlignment="Center" Width="75" Height="30" FontWeight="Bold">
+                <Button.Effect>
+                    <DropShadowEffect Color="Gray"
+                              Opacity=".50"
+                              ShadowDepth="8" />
+                </Button.Effect>
+            </Button>
+        </StackPanel>
+        
+    </Grid>
+</Window>

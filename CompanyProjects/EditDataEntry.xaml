@@ -1,0 +1,88 @@
+﻿<Window x:Class="CompanyProjects.EditDataEntry"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CompanyProjects"
+        mc:Ignorable="d"
+        Background="AliceBlue"
+        FocusManager.FocusedElement="{Binding ElementName=comboBox}"
+        Title="Izmena Pocetnog Unosa" Height="500" Width="700" MinWidth="200" MinHeight="200" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="75*"/>
+            <RowDefinition Height="50*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="63*"/>
+            <ColumnDefinition Width="33*"/>
+            <ColumnDefinition Width="33*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Width="Auto" Height="Auto" VerticalAlignment="Center">
+            <Label Content="Datum*" Width="100" />
+            <DatePicker SelectedDate="{Binding EntryDate, StringFormat=dd/MM/yyyy, Mode=TwoWay}" ToolTip="Unesite Nov Datum" Width="122" Height="24"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Width="Auto" Height="Auto" VerticalAlignment="Center">
+            <Label Content="Kompanija:*" Width="100" />
+            <ComboBox x:Name="comboBox" ItemsSource="{Binding AvaivbleCompanies}" SelectedItem="{Binding CompanySelectedValue, Mode=TwoWay}" DisplayMemberPath="TitleCompany" SelectedValue="{Binding CompanySelectedValue.CompanyId}" SelectedValuePath="CompanyId" ToolTip="Izaberite Kompaniju " Height="20" Width="122" />
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0" Width="Auto" Height="Auto" VerticalAlignment="Center" >
+            <Label Content="Projekat:*" Width="100"/>
+            <ComboBox x:Name="comboBox1" ItemsSource="{Binding AvaivbleProjects}" SelectedItem="{Binding ProjectSelectedValue, Mode=TwoWay}" DisplayMemberPath="TitleProject" SelectedValue="{Binding ProjectSelectedValue.ProjectId}" SelectedValuePath="ProjectId" ToolTip="Izaberite Projekat Kompanije " Height="20" Width="122" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="1" Width="Auto" Height="Auto" ToolTip="Izaberite Nov Fajl " VerticalAlignment="Center" HorizontalAlignment="Left">
+            <Button Content="Izaberi Fajl" 
+                        Command="{Binding AddFileToEntryCommand}"
+                        Width="150" 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Center" 
+                        Margin="0,5,5,5" FontWeight="Bold">
+                <Button.Effect>
+                    <DropShadowEffect Color="Gray"
+                              Opacity=".50"
+                              ShadowDepth="8" />
+                </Button.Effect>
+            </Button>
+        </StackPanel>
+
+        <TextBlock Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="textBlock" Text="{Binding FileName}" Margin="10,15,20,15" VerticalAlignment="Center" HorizontalAlignment="Left" Height="Auto" Width="Auto" FontWeight="Bold"/>
+
+        <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" Width="Auto" Height="Auto" VerticalAlignment="Top" Margin="10,15,50,0">
+            <StackPanel>
+                <Label Content="Opis:*" Width="100" HorizontalAlignment="Left" />
+            </StackPanel>
+            <TextBox AcceptsReturn="True" x:Name="textBox" Text="{Binding TextInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ToolTip="Unesite Nov Opis" VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="100" TextWrapping="Wrap" />
+        </StackPanel>
+
+        <Button Grid.Row="4" Grid.Column="0" Content="Sacuvaj Izmene" HorizontalAlignment="Right" IsDefault="True"
+                        Command="{Binding EditDataEntryCommand}"
+                        Width="150" Height="22"
+                        VerticalAlignment="Center" 
+                        Margin="20,5,0,5" FontWeight="Bold">
+            <Button.Effect>
+                <DropShadowEffect Color="Gray"
+                              Opacity=".50"
+                              ShadowDepth="8" />
+            </Button.Effect>
+        </Button>
+        <Button Content="Odustani" Grid.Row="4" Grid.Column="1"
+                    Command="{Binding CloseWindowCommand}"
+                    HorizontalAlignment="Center"
+                    Margin="30,0,55,0"
+                VerticalAlignment="Center" Width="75" FontWeight="Bold">
+            <Button.Effect>
+                <DropShadowEffect Color="Gray"
+                              Opacity=".50"
+                              ShadowDepth="8" />
+            </Button.Effect>
+        </Button>
+
+    </Grid>
+</Window>

@@ -1,0 +1,145 @@
+﻿<Window x:Class="CompanyProjects.CompaniesProjectsOverview"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CompanyProjects"
+        mc:Ignorable="d" 
+        Background="AliceBlue"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        Title="Pregled Kompanija|Projekata" Height="Auto" Width="Auto" MinWidth="900" MinHeight="700" WindowStartupLocation="CenterScreen">
+    <ScrollViewer VerticalScrollBarVisibility="Visible">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="75*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="32*"/>
+                <ColumnDefinition Width="160*"/>
+                <ColumnDefinition Width="128*"/>
+                <ColumnDefinition Width="423*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Orientation="Vertical" Width="Auto" Margin="0,0,0,0" Grid.ColumnSpan="2">
+                <StackPanel Grid.Row="1" Orientation="Horizontal" Width="Auto" Margin="10,0,-121,0">
+                    <Button Content="Kreiraj Novu Kompaniju" 
+                        Command="{Binding AddCompanyCommand}"
+                        Width="77" 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Center" 
+                        Margin="20,5,5,5" FontWeight="Bold">
+                        <Button.Effect>
+                            <DropShadowEffect Color="Gray"
+                              Opacity=".50"
+                              ShadowDepth="8" />
+                        </Button.Effect>
+                    </Button>
+                    <Button Content="Obrisi Kompaniju" 
+                        Command="{Binding RemoveCompanyCommand}"
+                        Width="130" 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Center" 
+                        Margin="10,5,5,5" FontWeight="Bold">
+                        <Button.Effect>
+                            <DropShadowEffect Color="Gray"
+                              Opacity=".50"
+                              ShadowDepth="8" />
+                        </Button.Effect>
+                    </Button>
+                    <Button Content="Izmeni Kompaniju" 
+                        Command="{Binding ChangeCompanyCommand}"
+                        Width="130" 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Center" 
+                        Margin="10,5,5,5" FontWeight="Bold">
+                        <Button.Effect>
+                            <DropShadowEffect Color="Gray"
+                              Opacity=".50"
+                              ShadowDepth="8" />
+                        </Button.Effect>
+                    </Button>
+                </StackPanel>
+                <DataGrid
+                  ItemsSource="{Binding AllCompanies}"
+                  SelectedItem="{Binding GridSelectedItem, Mode=TwoWay}"
+                  SelectionMode="Single"
+                  SelectionUnit="FullRow"
+                  Width="Auto" Height="Auto" AutoGenerateColumns="False" IsReadOnly="True" Margin="0,0,-121,0">
+
+                    <DataGrid.InputBindings>
+                        <MouseBinding Gesture="LeftDoubleClick" Command="{Binding AddProjectCommand}"/>
+                    </DataGrid.InputBindings>
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Naziv Kompanije" 
+                                    Binding="{Binding TitleCompany}" CanUserSort="False" Width="1*" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+
+
+            <StackPanel Grid.Column="3" Orientation="Vertical" Width="Auto" Margin="0,0,15,0" >
+                <StackPanel Orientation="Horizontal" Width="Auto" Margin="0,0,0,0" >
+                    <Button Content="Kreiraj Novi Projekat" 
+                            Command="{Binding AddProjectCommand}"
+                            Width="150" 
+                            HorizontalAlignment="Left" 
+                            VerticalAlignment="Center" 
+                            Margin="20,5,5,5" FontWeight="Bold">
+                        <Button.Effect>
+                            <DropShadowEffect Color="Gray"
+                              Opacity=".50"
+                              ShadowDepth="8" />
+                        </Button.Effect>
+                    </Button>
+                    <Button Content="Obrisi projekat" 
+                            Command="{Binding RemoveProjectCommand}"
+                            Width="150" 
+                            HorizontalAlignment="Left" 
+                            VerticalAlignment="Center" 
+                            Margin="20,5,5,5" FontWeight="Bold">
+                        <Button.Effect>
+                            <DropShadowEffect Color="Gray"
+                              Opacity=".50"
+                              ShadowDepth="8" />
+                        </Button.Effect>
+                    </Button>
+                    <Button Content="Izmeni projekat" 
+                            Command="{Binding ChangeProjectCommand}"
+                            Width="150" 
+                            HorizontalAlignment="Left" 
+                            VerticalAlignment="Center" 
+                            Margin="20,5,5,5" FontWeight="Bold">
+                        <Button.Effect>
+                            <DropShadowEffect Color="Gray"
+                              Opacity=".50"
+                              ShadowDepth="8" />
+                        </Button.Effect>
+                    </Button>
+                </StackPanel>
+
+                <DataGrid ItemsSource="{Binding AllProjects}" 
+                          SelectedItem="{Binding ProjectGridSelectedItem, Mode=TwoWay}"                         
+                          Width="Auto" Height="Auto" AutoGenerateColumns="False" IsReadOnly="True">
+                    
+                    <DataGrid.InputBindings>
+                        <MouseBinding Gesture="LeftDoubleClick" Command="{Binding ChangeProjectCommand}"/>
+                    </DataGrid.InputBindings>
+                    
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Naslov" 
+                                    Binding="{Binding TitleProject}" CanUserSort="False" Width="1*" />
+                        <DataGridTextColumn Header="Naziv Kompanije" 
+                                    Binding="{Binding AppropriateCompany.TitleCompany}" CanUserSort="False" Width="2*" />
+                        <DataGridTextColumn Header="Text" 
+                                    Binding="{Binding TextProject}" CanUserSort="False" Width="2*" />
+                        <DataGridTextColumn Header="Pocetni Datum" 
+                                    Binding="{Binding StartDate, StringFormat={}{0:dd/MM/yyyy}}" CanUserSort="False" Width="2*" />
+                        <DataGridTextColumn Header="Krajnji Datum" 
+                                    Binding="{Binding EndDate, StringFormat={}{0:dd/MM/yyyy}}" CanUserSort="False" Width="2*" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</Window>

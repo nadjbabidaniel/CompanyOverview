@@ -1,0 +1,144 @@
+﻿<Window x:Class="CompanyProjects.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CompanyProjects"
+        mc:Ignorable="d"
+         Background="AliceBlue"
+        Title="MainWindow" Height="Auto" Width="Auto" MinWidth="920" MinHeight="700" WindowStartupLocation="CenterScreen">
+    <ScrollViewer VerticalScrollBarVisibility="Visible">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="4*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="75*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="33*"/>
+                <ColumnDefinition Width="33*"/>
+                <ColumnDefinition Width="33*"/>
+                <ColumnDefinition Width="63*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Width="Auto">
+                <Button Content="Unos" 
+                        Command="{Binding AddDataEntryCommand}"
+                        Width="150" 
+                        HorizontalAlignment="Left" Margin="20,5,5,5" FontWeight="ExtraBlack" >
+                <Button.Effect>
+                    <DropShadowEffect Color="Gray"
+                              Opacity=".50"
+                              ShadowDepth="8" />
+                </Button.Effect>
+                </Button>
+            </StackPanel>
+            <StackPanel Grid.Row="0" Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Center"  Width="Auto" Margin="0,0,20,0">
+                <Button Content="Kompanije|Projekti" 
+                        Command="{Binding CompaniesProjectsCommand}"
+                        Width="150" 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Center" 
+                        Margin="20,5,5,5" FontWeight="ExtraBold">
+                <Button.Effect>
+                    <DropShadowEffect Color="Gray"
+                              Opacity=".50"
+                              ShadowDepth="8" />
+                </Button.Effect>
+                </Button>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Width="Auto" Margin="0,0,20,0">
+                <Button Content="Obrisi Unos" 
+                        Command="{Binding DeleteDataEntryCommand}"
+                        Width="150" 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Center" 
+                        Margin="20,5,5,5" FontWeight="ExtraBold">
+                <Button.Effect>
+                    <DropShadowEffect Color="Gray"
+                              Opacity=".50"
+                              ShadowDepth="8" />
+                </Button.Effect>
+                </Button>
+                <Button Content="Pregled/Editovanje" 
+                        Command="{Binding ViewEditDataEntryCommand}"
+                        Width="150" 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Center" 
+                        Margin="20,5,5,5" FontWeight="ExtraBold">
+                <Button.Effect>
+                    <DropShadowEffect Color="Gray"
+                              Opacity=".50"
+                              ShadowDepth="8" />
+                </Button.Effect>
+                </Button>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="4" Width="Auto" Height="33" VerticalAlignment="Bottom" Margin="5,0,-283,5">
+                <Label Content="Filter:" Width="50" />
+                <Label Content="Od: " Width="Auto" />
+                <DatePicker SelectedDate="{Binding StartFilterDate, Mode=TwoWay}" ToolTip="Unesite Datum Od kog zelite da Filtrirate Unose" Width="100" Height="22"/>
+                <Label Content=" Do: " Width="Auto" />
+                <DatePicker SelectedDate="{Binding EndFilterDate, Mode=TwoWay}" ToolTip="Unesite Datum Do kog zelite da Filtrirate Unose" Width="100" Height="22"/>
+                <Label Content="Po Kompaniji" Width="Auto" />
+
+                <ComboBox x:Name="comboBox1" ItemsSource="{Binding FilterAllCompanies}" SelectedItem="{Binding FilterCompanySelectedValue, Mode=TwoWay}" DisplayMemberPath="TitleCompany" SelectedValuePath="CompanyId" ToolTip="Izaberite Kompaniju po kojoj zelite da Filtrirate Unose" Height="20" Width="122" />
+                <Label Content="Po Projektu" Width="Auto" />
+                <ComboBox x:Name="comboBox2" ItemsSource="{Binding FilterAvaivbleProjects}"  Grid.Row="0" Grid.Column="2" SelectedItem="{Binding ProjectFilterSelectedValue, Mode=TwoWay}" DisplayMemberPath="TitleProject" SelectedValuePath="ProjectId" ToolTip="Izaberite Projekat po kojoj zelite da Filtrirate Unose" Height="20" Width="122" />
+                <Label Content="" Width="10" />
+                <Button Content="Filter" Command="{Binding SearchCommand}" Width="100" Height="25"  VerticalAlignment="Center" FontWeight="Bold">
+                    <Button.Effect>
+                        <DropShadowEffect Color="Gray"
+                              Opacity=".50"
+                              ShadowDepth="8" />
+                    </Button.Effect>
+                </Button>
+                <Button Content="Reset" Command="{Binding InicializationCommand}" Width="150" Height="25" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0" FontWeight="Bold">
+                    <Button.Effect>
+                        <DropShadowEffect Color="Gray"
+                              Opacity=".50"
+                              ShadowDepth="8" />
+                    </Button.Effect>
+                </Button>
+            </StackPanel>
+
+
+
+
+            <StackPanel Grid.Row="2" Grid.ColumnSpan="4" Orientation="Vertical" Width="Auto" ScrollViewer.CanContentScroll="True">
+                <DataGrid ItemsSource="{Binding AllDataEntries, Mode=TwoWay}"
+                  SelectedItem="{Binding GridSelectedItem, Mode=TwoWay}"
+                  SelectionMode="Single"
+                  SelectionUnit="FullRow"
+                  Width="Auto" Height="Auto" AutoGenerateColumns="False" IsReadOnly="True">
+
+                    <DataGrid.InputBindings>
+                        <MouseBinding Gesture="LeftDoubleClick" Command="{Binding ViewEditDataEntryCommand}"/>
+                    </DataGrid.InputBindings>
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn CanUserSort="True" Header="Datum" 
+                                    Binding="{Binding Date, StringFormat={}{0:dd/MM/yyyy}}" Width="1*" />
+                        <DataGridTextColumn Header="Naziv Kompanije" 
+                                    Binding="{Binding CompanyTitle}" CanUserSort="True" Width="1.5*" />
+                        <DataGridTextColumn Header="Naziv Projekta" 
+                                    Binding="{Binding ProjectTitle}" CanUserSort="True" Width="1.5*" />
+                        <DataGridTextColumn Header="Text Opis" 
+                                    Binding="{Binding TextInput}" CanUserSort="True" Width="4*" />
+
+                        <DataGridTemplateColumn Width="1.5*" Header="Fajl">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Command="{Binding Path=DataContext.ActivateFileCommand, RelativeSource= {RelativeSource FindAncestor,AncestorType={x:Type DataGrid}}}" Content="{Binding TitleDataProject}">
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+
+                </DataGrid>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</Window>
