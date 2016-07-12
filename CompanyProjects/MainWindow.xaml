@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:CompanyProjects"
         mc:Ignorable="d"
          Background="AliceBlue"
-        Title="MainWindow" Height="Auto" Width="Auto" MinWidth="920" MinHeight="700" WindowStartupLocation="CenterScreen">
+        Title="MainWindow" Height="Auto" Width="Auto" MinWidth="920" MinHeight="700" WindowState="Maximized" WindowStartupLocation="CenterScreen">
     <ScrollViewer VerticalScrollBarVisibility="Visible">
         <Grid>
             <Grid.RowDefinitions>
@@ -104,10 +104,8 @@
             </StackPanel>
 
 
-
-
             <StackPanel Grid.Row="2" Grid.ColumnSpan="4" Orientation="Vertical" Width="Auto" ScrollViewer.CanContentScroll="True">
-                <DataGrid ItemsSource="{Binding AllDataEntries, Mode=TwoWay}"
+                <DataGrid ItemsSource="{Binding AllDataEntries, Mode=TwoWay}"  
                   SelectedItem="{Binding GridSelectedItem, Mode=TwoWay}"
                   SelectionMode="Single"
                   SelectionUnit="FullRow"
@@ -119,13 +117,19 @@
 
                     <DataGrid.Columns>
                         <DataGridTextColumn CanUserSort="True" Header="Datum" 
-                                    Binding="{Binding Date, StringFormat={}{0:dd/MM/yyyy}}" Width="1*" />
+                                    Binding="{Binding Date, StringFormat={}{0:dd.MM.yyyy}}" Width="1*" />
                         <DataGridTextColumn Header="Naziv Kompanije" 
                                     Binding="{Binding CompanyTitle}" CanUserSort="True" Width="1.5*" />
                         <DataGridTextColumn Header="Naziv Projekta" 
                                     Binding="{Binding ProjectTitle}" CanUserSort="True" Width="1.5*" />
-                        <DataGridTextColumn Header="Text Opis" 
-                                    Binding="{Binding TextInput}" CanUserSort="True" Width="4*" />
+                       
+                        <DataGridTemplateColumn Width="5*" Header="Text Opis">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding TextInput}" TextWrapping="Wrap" MaxHeight="50" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
                         <DataGridTemplateColumn Width="1.5*" Header="Fajl">
                             <DataGridTemplateColumn.CellTemplate>

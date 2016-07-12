@@ -90,6 +90,10 @@
       <DependentUpon>EditDataEntry.xaml</DependentUpon>
     </Compile>
     <Compile Include="IHavePassword.cs" />
+    <Compile Include="Migrations\201607121205215_changedTextForDataEntry.cs" />
+    <Compile Include="Migrations\201607121205215_changedTextForDataEntry.Designer.cs">
+      <DependentUpon>201607121205215_changedTextForDataEntry.cs</DependentUpon>
+    </Compile>
     <Compile Include="Registration.xaml.cs">
       <DependentUpon>Registration.xaml</DependentUpon>
     </Compile>
@@ -209,6 +213,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607011450174_addedUserForLogin3.resx">
       <DependentUpon>201607011450174_addedUserForLogin3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607121205215_changedTextForDataEntry.resx">
+      <DependentUpon>201607121205215_changedTextForDataEntry.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

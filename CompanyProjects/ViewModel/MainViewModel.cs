@@ -327,8 +327,6 @@ namespace CompanyProjects.ViewModel
         }
 
 
-
-
         private RelayCommand _inicializationCommand;
         public ICommand InicializationCommand
         {
@@ -446,10 +444,7 @@ namespace CompanyProjects.ViewModel
             StartFilterDate = null;
             EndFilterDate = null; 
 
-            //Deo za istekle Unose ciji Datum projekta je istekao
-
-              
-
+            //Deo za istekle Unose ciji Datum projekta je istekao             
 
         }
         #endregion

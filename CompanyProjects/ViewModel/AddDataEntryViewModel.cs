@@ -194,14 +194,10 @@ namespace CompanyProjects.ViewModel
                 if (!(this.ProjectSelectedValue is Project))
                     return false;
 
-                if (String.IsNullOrWhiteSpace(this.TextInput) || (TextInput.Length > 512))
-                {
-                    //if (TextInput.Length > 512) MessageBox.Show("Maximalan broj karaktera je 512");
-                    return false;
-                }
-
-                //if (!(this.EntryDate is DateTime))
+                //if (String.IsNullOrWhiteSpace(this.TextInput) || (TextInput.Length > 512))
+                //{
                 //    return false;
+                //}             
 
                 return true;
             }

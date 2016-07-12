@@ -7,14 +7,14 @@
         mc:Ignorable="d"
         Background="AliceBlue"
         FocusManager.FocusedElement="{Binding ElementName=comboBox}"
-        Title="Izmena Pocetnog Unosa" Height="500" Width="700" MinWidth="200" MinHeight="200" WindowStartupLocation="CenterScreen">
+        Title="Izmena Pocetnog Unosa" MinWidth="700" MinHeight="500" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="20*"/>
-            <RowDefinition Height="20*"/>
-            <RowDefinition Height="20*"/>
-            <RowDefinition Height="75*"/>
-            <RowDefinition Height="50*"/>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="41*"/>
+            <RowDefinition Height="355*"/>
+            <RowDefinition Height="28*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="63*"/>
@@ -54,17 +54,17 @@
 
         <TextBlock Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="textBlock" Text="{Binding FileName}" Margin="10,15,20,15" VerticalAlignment="Center" HorizontalAlignment="Left" Height="Auto" Width="Auto" FontWeight="Bold"/>
 
-        <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" Width="Auto" Height="Auto" VerticalAlignment="Top" Margin="10,15,50,0">
+        <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Width="Auto" Height="510" VerticalAlignment="Top" Margin="10,0,10,0" Grid.RowSpan="2">
             <StackPanel>
                 <Label Content="Opis:*" Width="100" HorizontalAlignment="Left" />
             </StackPanel>
-            <TextBox AcceptsReturn="True" x:Name="textBox" Text="{Binding TextInput, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ToolTip="Unesite Nov Opis" VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="100" TextWrapping="Wrap" />
+            <TextBox AcceptsReturn="True" x:Name="textBox" Text="{Binding TextInput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="Unesite Opis" VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="480" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" />
         </StackPanel>
 
         <Button Grid.Row="4" Grid.Column="0" Content="Sacuvaj Izmene" HorizontalAlignment="Right" IsDefault="True"
                         Command="{Binding EditDataEntryCommand}"
                         Width="150" Height="22"
-                        VerticalAlignment="Center" 
+                        VerticalAlignment="Bottom" 
                         Margin="20,5,0,5" FontWeight="Bold">
             <Button.Effect>
                 <DropShadowEffect Color="Gray"
@@ -76,7 +76,7 @@
                     Command="{Binding CloseWindowCommand}"
                     HorizontalAlignment="Center"
                     Margin="30,0,55,0"
-                VerticalAlignment="Center" Width="75" FontWeight="Bold">
+                VerticalAlignment="Bottom" Width="75" FontWeight="Bold">
             <Button.Effect>
                 <DropShadowEffect Color="Gray"
                               Opacity=".50"

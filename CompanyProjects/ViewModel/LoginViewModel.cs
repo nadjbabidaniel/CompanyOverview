@@ -116,7 +116,7 @@ namespace CompanyProjects.ViewModel
                 {
                     if (user.Password.Equals(pass))
                     {
-                        MessageBox.Show("Uspesno ste se logovali");
+                        //MessageBox.Show("Uspesno ste se logovali");
                         MainWindow mw = new MainWindow();
                         mw.Show();
                         CloseAction();
@@ -239,8 +239,6 @@ namespace CompanyProjects.ViewModel
 
             return hex;
         }
-
-
 
 
         private RelayCommand _registrationWindowCommand;
