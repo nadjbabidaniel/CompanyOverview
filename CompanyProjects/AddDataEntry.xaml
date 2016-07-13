@@ -71,8 +71,10 @@
             <StackPanel HorizontalAlignment="Left" Width="727">
                 <Label Content="Opis:*" Width="100" HorizontalAlignment="Left" />
             </StackPanel>
-            <TextBox AcceptsReturn="True" Height="590" Width="1405" x:Name="textBox" Text="{Binding TextInput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                     ToolTip="Unesite Opis" VerticalAlignment="Top" HorizontalAlignment="Left" ScrollViewer.HorizontalScrollBarVisibility="Auto" 
+            <TextBox AcceptsReturn="True" Height="590" Width="1405" x:Name="textBox" FontSize="16"
+                     Text="{Binding TextInput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                     ToolTip="Unesite Opis" VerticalAlignment="Top" HorizontalAlignment="Left" 
+                     ScrollViewer.HorizontalScrollBarVisibility="Auto" 
                      ScrollViewer.VerticalScrollBarVisibility="Auto" />
         </StackPanel>
 
