@@ -211,10 +211,10 @@ namespace CompanyProjects.ViewModel
                 if (!(this.ProjectSelectedValue is Project))
                     return false;
 
-                if (String.IsNullOrWhiteSpace(this.TextInput))
-                    return false;
-                if (String.IsNullOrWhiteSpace(this.EntryDate.ToString()))
-                    return false;
+                //if (String.IsNullOrWhiteSpace(this.TextInput))
+                //    return false;
+                //if (String.IsNullOrWhiteSpace(this.EntryDate.ToString()))
+                //    return false;
 
                 return true;
             }
