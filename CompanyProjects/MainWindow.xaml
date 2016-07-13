@@ -110,7 +110,19 @@
                   SelectionMode="Single"
                   SelectionUnit="FullRow"
                   Width="Auto" Height="Auto" AutoGenerateColumns="False" IsReadOnly="True">
-
+                   
+                    <DataGrid.Resources>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="Height" Value="35"/>
+                            <Setter Property="Background" Value="LightGray" />
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="ToolTip" Value="Click to sort."/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.Resources>
+                    
                     <DataGrid.InputBindings>
                         <MouseBinding Gesture="LeftDoubleClick" Command="{Binding ViewEditDataEntryCommand}"/>
                     </DataGrid.InputBindings>

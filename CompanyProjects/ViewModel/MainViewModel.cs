@@ -215,8 +215,8 @@ namespace CompanyProjects.ViewModel
         }
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            //initilazeFilter();
-            SearchCommandExecute();
+            initilazeFilter();
+            //SearchCommandExecute();
         }
 
 
@@ -364,7 +364,7 @@ namespace CompanyProjects.ViewModel
         }
         void DeleteDataEntryCommandExecute()
         {
-            MessageBoxResult m = MessageBox.Show(String.Format("Da li ste sigurni da zelite da obrisete Unos {0}?", GridSelectedItem.TextInput), "Obrisi Unos", MessageBoxButton.YesNoCancel);
+            MessageBoxResult m = MessageBox.Show(String.Format("Da li ste sigurni da zelite da obrisete unos kompanije: {0}?", GridSelectedItem.CompanyTitle), "Obrisi Unos", MessageBoxButton.YesNoCancel);
 
             if (m == MessageBoxResult.Yes)
             {

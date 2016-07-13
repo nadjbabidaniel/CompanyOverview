@@ -257,6 +257,38 @@ namespace CompanyProjects.ViewModel
             }
         }
 
+        private RelayCommand _removeFileFromEntryCommand;
+        public ICommand RemoveFileFromEntryCommand
+        {
+            get
+            {
+                if (_removeFileFromEntryCommand == null)
+                {
+                    _removeFileFromEntryCommand = new RelayCommand(
+                        param => this.RemoveFileFromEntryCommandExecute(),
+                        param => /*true); */this.RemoveFileFromEntryCommandBool);
+                }
+                return _removeFileFromEntryCommand;
+            }
+        }
+
+        void RemoveFileFromEntryCommandExecute()
+        {
+            FileName = String.Empty;
+            FilePath = String.Empty;
+        }
+
+        bool RemoveFileFromEntryCommandBool
+        {
+            get
+            {
+                if (String.IsNullOrEmpty(FileName))
+                    return false;
+
+                return true;
+            }
+        }
+
         public Action CloseAction { get; set; } // SET uradjen u backend kodu.
         private RelayCommand _closeWindowCommand;
         public ICommand CloseWindowCommand
