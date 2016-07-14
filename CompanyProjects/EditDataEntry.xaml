@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Background="AliceBlue"
         FocusManager.FocusedElement="{Binding ElementName=comboBox}"
-        Title="Izmena Pocetnog Unosa" MinWidth="1450" MinHeight="800" WindowStartupLocation="CenterScreen">
+        Title="Izmena Pocetnog Unosa" MinWidth="1450" MinHeight="800" WindowStartupLocation="CenterScreen" Height="781.677" Width="1381.943">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40*"/>
@@ -67,8 +67,8 @@
             </Button.Effect>
         </Button>
 
-        <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Width="1450" Height="700" VerticalAlignment="Top" 
-                    Margin="10,0,10,0">
+        <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Height="700" VerticalAlignment="Top" 
+                    Margin="10,0,15,-29" Grid.RowSpan="2">
             <StackPanel HorizontalAlignment="Left" Width="727">
                 <Label Content="Opis:*" Width="100" HorizontalAlignment="Left" />
             </StackPanel>
@@ -93,8 +93,8 @@
         <Button Content="Odustani" Grid.Row="4" Grid.Column="2"
                     Command="{Binding CloseWindowCommand}"
                     HorizontalAlignment="Center"
-                    Margin="30,0,55,0"
-                VerticalAlignment="Bottom" Width="75" FontWeight="Bold">
+                    Margin="30,0,55,5"
+                VerticalAlignment="Bottom" Width="150" Height="22" FontWeight="Bold">
             <Button.Effect>
                 <DropShadowEffect Color="Gray"
                               Opacity=".50"

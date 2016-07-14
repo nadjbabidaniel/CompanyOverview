@@ -59,13 +59,13 @@ namespace CompanyProjects.DataAccess
             foreach (var q in query)
             {
                 q.CompanyId = CurrentGridSelectedItem.CompanyId;
-                q.CompanyTitle = CurrentGridSelectedItem.CompanyTitle;
-                q.DataProject = CurrentGridSelectedItem.DataProject;
+                //q.CompanyTitle = CurrentGridSelectedItem.CompanyTitle;
+                //q.DataProject = CurrentGridSelectedItem.DataProject;
                 q.Date = CurrentGridSelectedItem.Date;
                 q.ProjectId = CurrentGridSelectedItem.ProjectId;
-                q.ProjectTitle = CurrentGridSelectedItem.ProjectTitle;
+                //q.ProjectTitle = CurrentGridSelectedItem.ProjectTitle;
                 q.TextInput = CurrentGridSelectedItem.TextInput;
-                q.TitleDataProject = CurrentGridSelectedItem.TitleDataProject;
+                //q.TitleDataProject = CurrentGridSelectedItem.TitleDataProject;
             }
             try
             {

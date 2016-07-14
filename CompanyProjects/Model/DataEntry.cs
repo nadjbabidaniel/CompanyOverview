@@ -18,27 +18,29 @@ namespace CompanyProjects.Model
         [Required]
         public int CompanyId { get; set; }
 
-        [Required]
-        public string CompanyTitle { get; set; }
+        //[Required]
+        //public string CompanyTitle { get; set; }
 
         [Required]
         public int ProjectId { get; set; }
 
-        [Required]
-        public string ProjectTitle { get; set; }
+        //[Required]
+        //public string ProjectTitle { get; set; }
 
         // --- PODACI ---
         [Required]    
         public DateTime Date { get; set; }        
 
-        //[Required] // za ovo jos proveri da li je required
-        //[StringLength(512, ErrorMessage = "Title cant be longer then 512 characters")]
         public string TextInput { get; set; }
 
-        public string DataProject { get; set; }
+        //public string DataProject { get; set; }//zakoment
 
-        public string TitleDataProject { get; set; }
+        //public string TitleDataProject { get; set; }//zakoment
 
+
+
+        // --- VIRTUALNI NAVIGACIONI OBJEKTI ---
+        public virtual IList<DataItem> AppropriatDataItems { get; set; }
 
     }
 }

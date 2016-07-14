@@ -169,14 +169,14 @@ namespace CompanyProjects.ViewModel
         void SaveEntryCommandExecute()
         {
             DataEntry dte = new DataEntry();
-            dte.CompanyId = CompanySelectedValue.CompanyId;
-            dte.CompanyTitle = CompanySelectedValue.TitleCompany;
+            //dte.CompanyId = CompanySelectedValue.CompanyId;
+            //dte.CompanyTitle = CompanySelectedValue.TitleCompany;
             dte.Date = EntryDate;
             dte.ProjectId = ProjectSelectedValue.ProjectId;
-            dte.ProjectTitle = ProjectSelectedValue.TitleProject;
+            //dte.ProjectTitle = ProjectSelectedValue.TitleProject;
             dte.TextInput = TextInput;            
-            dte.DataProject = filePath;
-            dte.TitleDataProject = FileName;            
+            //dte.DataProject = filePath;
+            //dte.TitleDataProject = FileName;            
 
             _dataEntryrepository.AddDataEntry(dte);
             AllDataEntriesCurrent.Add(dte);
