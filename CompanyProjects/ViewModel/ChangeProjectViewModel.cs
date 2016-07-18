@@ -13,7 +13,6 @@ namespace CompanyProjects.ViewModel
 {
     class ChangeProjectViewModel : ViewModelBase
     {        
-        //readonly ProjectRepository _projectRepository;        
         //readonly DataEntryRepository _dataEntryRepository;
 
         public ObservableCollection<Project> AllCurrentProjects;
@@ -174,13 +173,7 @@ namespace CompanyProjects.ViewModel
 
             using (ProjectRepository _projectRepository = new ProjectRepository())
             {
-                if (_projectRepository.UpdateProject(proj))
-                {
-                    using (DataEntryRepository _dataEntryRepository = new DataEntryRepository())
-                    {
-                        _dataEntryRepository.UpdateDataEntryProjectName(proj);
-                    }
-                }
+                _projectRepository.UpdateProject(proj);               
             }           
             CloseAction();
         }

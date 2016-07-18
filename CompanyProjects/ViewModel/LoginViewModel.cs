@@ -13,7 +13,7 @@ using System.Windows.Input;
 
 namespace CompanyProjects.ViewModel
 {
-    class LoginViewModel : ViewModelBase
+    public class LoginViewModel : ViewModelBase
     {
         CompanyDataContext db;
 
@@ -116,8 +116,7 @@ namespace CompanyProjects.ViewModel
                 {
                     if (user.Password.Equals(pass))
                     {
-                        //MessageBox.Show("Uspesno ste se logovali");
-                        MainWindow mw = new MainWindow();
+                        MainWindow mw = new MainWindow(user);
                         mw.Show();
                         CloseAction();
                     }
@@ -189,8 +188,8 @@ namespace CompanyProjects.ViewModel
                                         db.User.Add(user);
                                         db.SaveChanges();
 
-                                        MessageBox.Show("Registracija uspesno obavljena");
-                                        MainWindow mw = new MainWindow();
+                                        MessageBoxResult m = MessageBox.Show(String.Format("Registracija uspesno obavljena"), "Brisanje Fajla", MessageBoxButton.OK);
+                                        MainWindow mw = new MainWindow(user);
                                         mw.Show();
                                         CloseAction();
                                     }

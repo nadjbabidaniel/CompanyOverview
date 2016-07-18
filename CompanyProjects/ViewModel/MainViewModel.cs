@@ -15,13 +15,14 @@ namespace CompanyProjects.ViewModel
 {
 
 
-    class MainViewModel : ViewModelBase
+    public class MainViewModel : ViewModelBase
     {
         private CompanyDataContext db = new CompanyDataContext();
 
-        public MainViewModel()
+        public MainViewModel(User user)
         {
             initilazeFilter();
+            LoggedUser = user;
         }
 
         #region Properties      
@@ -186,6 +187,25 @@ namespace CompanyProjects.ViewModel
             }
         }
 
+        private User _loggedUser;
+        public User LoggedUser
+        {
+            get
+            {
+                return _loggedUser;
+            }
+            set
+            {
+                if (_loggedUser == value)
+                {
+                    return;
+                }
+                _loggedUser = value;
+                OnPropertyChanged();
+            }
+        }
+
+
         #endregion
 
 
@@ -264,14 +284,14 @@ namespace CompanyProjects.ViewModel
         void ActivateFileCommandExecute()
         {
             //Process.Start("C:\\1.rtf");
-            if (!String.IsNullOrEmpty(GridSelectedItem.DataProject))
-            {
-                Process.Start(GridSelectedItem.DataProject);
-            }
-            else
-            {
-                MessageBox.Show("Unesite validan dokument! ");
-            }
+            //if (!String.IsNullOrEmpty(GridSelectedItem.DataProject))
+            //{
+            //    Process.Start(GridSelectedItem.DataProject);
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Unesite validan dokument! ");
+            //}
         }
 
 
@@ -295,7 +315,7 @@ namespace CompanyProjects.ViewModel
             IEnumerable<DataEntry> filterCompanies = db.DataEntry;
             if (FilterCompanySelectedValue != null)
             {
-                filterCompanies = filterCompanies.Where(chanel => chanel.CompanyId == (FilterCompanySelectedValue.CompanyId));
+                filterCompanies = filterCompanies.Where(chanel => chanel.AppropriateProject.AppropriateCompany.CompanyId == (FilterCompanySelectedValue.CompanyId));
             }
 
             if (ProjectFilterSelectedValue != null)
@@ -346,8 +366,6 @@ namespace CompanyProjects.ViewModel
             initilazeFilter();
         }
 
-
-
         private RelayCommand _deleteDataEntryCommand;
         public ICommand DeleteDataEntryCommand
         {
@@ -364,7 +382,7 @@ namespace CompanyProjects.ViewModel
         }
         void DeleteDataEntryCommandExecute()
         {
-            MessageBoxResult m = MessageBox.Show(String.Format("Da li ste sigurni da zelite da obrisete unos kompanije: {0}?", GridSelectedItem.CompanyTitle), "Obrisi Unos", MessageBoxButton.YesNoCancel);
+            MessageBoxResult m = MessageBox.Show(String.Format("Da li ste sigurni da zelite da obrisete unos kompanije: {0}?", GridSelectedItem.AppropriateProject.TitleProject), "Obrisi Unos", MessageBoxButton.YesNoCancel);
 
             if (m == MessageBoxResult.Yes)
             {
@@ -386,9 +404,6 @@ namespace CompanyProjects.ViewModel
                 return true;
             }
         }
-
-
-
 
         private RelayCommand _viewEditDataEntryCommand;
         public ICommand ViewEditDataEntryCommand
@@ -426,27 +441,46 @@ namespace CompanyProjects.ViewModel
             }
         }
 
+        private RelayCommand _changePasswordCommand;
+        public ICommand ChangePasswordCommand
+        {
+            get
+            {
+                if (_changePasswordCommand == null)
+                {
+                    _changePasswordCommand = new RelayCommand(
+                        param => this.ChangePasswordCommandExecute(),
+                        param => true);// (umesto CanExecute)
+                }
+                return _changePasswordCommand;
+            }
+        }
+        void ChangePasswordCommandExecute()
+        {
+            ChangeDetailsAndPassword window = new ChangeDetailsAndPassword(LoggedUser);
+            window.Show();
 
-        #endregion
+        }
+            #endregion
 
-        #region Funcitons
+            #region Funcitons
 
-        void initilazeFilter()
+            void initilazeFilter()
         {
             db = new CompanyDataContext();
-            FilterAllCompanies = new ObservableCollection<Company>(db.Company);
-            FilterAvaivbleProjects = new ObservableCollection<Project>(db.Project);
-            AllDataEntries = new ObservableCollection<DataEntry>(db.DataEntry);
+            //using (db = new CompanyDataContext())
+            //{
+                FilterAllCompanies = new ObservableCollection<Company>(db.Company);
+                FilterAvaivbleProjects = new ObservableCollection<Project>(db.Project);
+                AllDataEntries = new ObservableCollection<DataEntry>(db.DataEntry); 
+            //}
 
             FilterCompanySelectedValue = null;
             ProjectFilterSelectedValue = null;
 
             StartFilterDate = null;
             EndFilterDate = null; 
-
-            //Deo za istekle Unose ciji Datum projekta je istekao             
-
-        }
+        }      
         #endregion
     }
 }

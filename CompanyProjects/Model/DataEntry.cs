@@ -15,8 +15,8 @@ namespace CompanyProjects.Model
 
         // --- //STRANI KLJUCevi
 
-        [Required]
-        public int CompanyId { get; set; }
+        //[Required]
+        //public int CompanyId { get; set; }
 
         //[Required]
         //public string CompanyTitle { get; set; }
@@ -33,14 +33,17 @@ namespace CompanyProjects.Model
 
         public string TextInput { get; set; }
 
-        //public string DataProject { get; set; }//zakoment
+        //public string DataProject { get; set; }
 
         //public string TitleDataProject { get; set; }//zakoment
 
 
 
         // --- VIRTUALNI NAVIGACIONI OBJEKTI ---
-        public virtual IList<DataItem> AppropriatDataItems { get; set; }
+        public virtual IList<DataItem> AppropriateDataItems { get; set; }
+
+        public virtual Project AppropriateProject { get; set; }
+
 
     }
 }

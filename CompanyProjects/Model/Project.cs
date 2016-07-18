@@ -41,5 +41,8 @@ namespace CompanyProjects.Model
 
         public virtual Company AppropriateCompany { get; set; }
 
+        public virtual IList<DataEntry> AppropriateDataEntries { get; set; }
+
+
     }
 }

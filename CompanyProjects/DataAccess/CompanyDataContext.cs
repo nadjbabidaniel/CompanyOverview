@@ -18,6 +18,7 @@ namespace CompanyProjects.DataAccess
         public DbSet<Company> Company { get; set; }
         public DbSet<Project> Project { get; set; }
         public DbSet<DataEntry> DataEntry { get; set; }
+        public DbSet<DataItem> DataItem { get; set; }
         public DbSet<User> User { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

@@ -3,6 +3,7 @@ using CompanyProjects.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,26 +17,44 @@ namespace CompanyProjects.ViewModel
         private CompanyDataContext db = new CompanyDataContext();
         CompanyRepository compRepo = new CompanyRepository();
         DataEntryRepository dataEntryRepo = new DataEntryRepository();
-
         DataEntry CurrentGridSelectedItem;
+        string FilePath = String.Empty;
+        string FileName = String.Empty;
 
         public EditDataEntryViewModel(DataEntry GridSelectedItem)
         {
             CurrentGridSelectedItem = GridSelectedItem;
-
             EntryDate = CurrentGridSelectedItem.Date;
-
             TextInput = CurrentGridSelectedItem.TextInput;
-            CompanySelectedValue = compRepo.GetCompany(GridSelectedItem.CompanyId);
+
+            CompanySelectedValue = compRepo.GetCompany(GridSelectedItem.AppropriateProject.AppropriateCompany.CompanyId);
+            //CompanySelectedValue = db.Company.FirstOrDefault(x=>x.CompanyId == GridSelectedItem.AppropriateProject.AppropriateCompany.CompanyId); //bez koristenja compRepo u VIewModelu, benefit
             ProjectSelectedValue = db.Project.FirstOrDefault(x=>x.ProjectId == GridSelectedItem.ProjectId);
-            FileName = GridSelectedItem.TitleDataProject;
-            FilePath = GridSelectedItem.DataProject;
+
+            AllDataItemsOfDataEntry = new ObservableCollection<DataItem>(GridSelectedItem.AppropriateDataItems);            
 
             AvaivbleCompanies = new ObservableCollection<Company>(db.Company);
             AvaivbleProjects = new ObservableCollection<Project>(CompanySelectedValue.AppropriateProjects);
         }
 
         #region Properties
+        ObservableCollection<DataItem> _allDataItemsOfDataEntry;
+        public ObservableCollection<DataItem> AllDataItemsOfDataEntry
+        {
+            get
+            {
+                return _allDataItemsOfDataEntry;
+            }
+            set
+            {
+                if (value != _allDataItemsOfDataEntry)
+                {
+                    _allDataItemsOfDataEntry = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         ObservableCollection<Company> _avaivbleCompanies;
         public ObservableCollection<Company> AvaivbleCompanies
         {
@@ -134,37 +153,21 @@ namespace CompanyProjects.ViewModel
             }
         }
 
-        private String _fileName;
-        public String FileName
+        private DataItem _gridSelectedItem;
+        public DataItem GridSelectedItem
         {
             get
             {
-                return _fileName;
+                return _gridSelectedItem;
             }
             set
             {
-                if (value != _fileName)
+                if (_gridSelectedItem == value)
                 {
-                    _fileName = value;
-                    OnPropertyChanged();
+                    return;
                 }
-            }
-        }
-
-        private String _filePath;
-        public String FilePath
-        {
-            get
-            {
-                return _filePath;
-            }
-            set
-            {
-                if (value != _filePath)
-                {
-                    _filePath = value;
-                    OnPropertyChanged();
-                }
+                _gridSelectedItem = value;
+                OnPropertyChanged();
             }
         }
         #endregion
@@ -187,14 +190,11 @@ namespace CompanyProjects.ViewModel
 
         void UpdateEntryCommandExecute()
         {
-            CurrentGridSelectedItem.CompanyId = CompanySelectedValue.CompanyId;
-            CurrentGridSelectedItem.CompanyTitle = CompanySelectedValue.TitleCompany;
             CurrentGridSelectedItem.Date = EntryDate;
             CurrentGridSelectedItem.ProjectId = ProjectSelectedValue.ProjectId;
-            CurrentGridSelectedItem.ProjectTitle = ProjectSelectedValue.TitleProject;
             CurrentGridSelectedItem.TextInput = TextInput;
-            CurrentGridSelectedItem.DataProject = FilePath;
-            CurrentGridSelectedItem.TitleDataProject = FileName;
+            CurrentGridSelectedItem.AppropriateDataItems = AllDataItemsOfDataEntry;
+
 
             dataEntryRepo.UpdateDataEntry(CurrentGridSelectedItem);
 
@@ -210,11 +210,6 @@ namespace CompanyProjects.ViewModel
 
                 if (!(this.ProjectSelectedValue is Project))
                     return false;
-
-                //if (String.IsNullOrWhiteSpace(this.TextInput))
-                //    return false;
-                //if (String.IsNullOrWhiteSpace(this.EntryDate.ToString()))
-                //    return false;
 
                 return true;
             }
@@ -244,8 +239,7 @@ namespace CompanyProjects.ViewModel
             Nullable<bool> result = dlg.ShowDialog();
 
             if (result.HasValue && result.Value)
-            {
-                //FilePath = "";
+            {              
                 // Open document 
                 FilePath = dlg.FileName;
 
@@ -253,7 +247,10 @@ namespace CompanyProjects.ViewModel
                 int i = FileName.LastIndexOf('\\');
                 if (i > -1) { FileName = FileName.Substring(i + 1); }
 
-                MessageBox.Show(FileName);
+                DataItem dti = new DataItem();
+                dti.DataProject = FilePath;
+                dti.TitleDataProject = FileName;
+                AllDataItemsOfDataEntry.Add(dti);
             }
         }
 
@@ -274,15 +271,55 @@ namespace CompanyProjects.ViewModel
 
         void RemoveFileFromEntryCommandExecute()
         {
-            FileName = String.Empty;
-            FilePath = String.Empty;
+            MessageBoxResult m = MessageBox.Show(String.Format("Da li ste sigurni da zelite da obrisete fajl: {0}?", GridSelectedItem.TitleDataProject), "Brisanje Fajla", MessageBoxButton.YesNoCancel);
+            if (m == MessageBoxResult.Yes)
+            {
+                AllDataItemsOfDataEntry.Remove(GridSelectedItem);
+            }
         }
 
         bool RemoveFileFromEntryCommandBool
         {
             get
             {
-                if (String.IsNullOrEmpty(FileName))
+                if (!(GridSelectedItem is DataItem))
+                    return false;
+
+                return true;
+            }
+        }
+
+        private RelayCommand _viewDataItemCommand;
+        public ICommand ViewDataItemCommand
+        {
+            get
+            {
+                if (_viewDataItemCommand == null)
+                {
+                    _viewDataItemCommand = new RelayCommand(
+                        param => this.ViewDataItemCommandExecute(),
+                        param => ViewDataItemCommandCanExecute);// (umesto CanExecute)
+                }
+                return _viewDataItemCommand;
+            }
+        }
+        void ViewDataItemCommandExecute()
+        {
+            if (!String.IsNullOrEmpty(GridSelectedItem.DataProject))
+            {
+                Process.Start(GridSelectedItem.DataProject);
+            }
+            else
+            {
+                MessageBox.Show("Nemoguce otvoriti dokument");
+            }
+        }
+
+        bool ViewDataItemCommandCanExecute
+        {
+            get
+            {
+                if (!(GridSelectedItem is DataItem))
                     return false;
 
                 return true;

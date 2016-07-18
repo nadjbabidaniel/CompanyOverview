@@ -171,7 +171,7 @@ namespace CompanyProjects.ViewModel
         }
         void RemoveCompanyCommandExecute()
         {
-            var query = db.DataEntry.FirstOrDefault(x=> x.CompanyId == GridSelectedItem.CompanyId);
+            var query = db.DataEntry.FirstOrDefault(x=> x.AppropriateProject.AppropriateCompany.CompanyId == GridSelectedItem.CompanyId);
             if(query != null)
             {
                 MessageBox.Show("Kompanija se nalazi u Unosu na pocetnoj strani, molimo obrisite je prvo odatle.");

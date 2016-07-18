@@ -1,4 +1,5 @@
-﻿using CompanyProjects.ViewModel;
+﻿using CompanyProjects.Model;
+using CompanyProjects.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,10 +22,10 @@ namespace CompanyProjects
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public MainWindow(User user)
         {
             InitializeComponent();
-            var variable = new MainViewModel();
+            var variable = new MainViewModel(user);
             this.DataContext = variable;
         }
     }

@@ -84,11 +84,8 @@ namespace CompanyProjects.ViewModel
         {
             CurrentGridSelectedItem.TitleCompany = TitleCompany;
 
-            if(_companyRepository.UpdateComponent(CurrentGridSelectedItem))
-            {
-                _dataEntryRepository.UpdateDataEntryCompanyName(CurrentGridSelectedItem);
-            }            
-            CloseAction();
+            if(_companyRepository.UpdateComponent(CurrentGridSelectedItem)) CloseAction();
+
         }
         public bool SaveOtpremnicaCommandCanExecute
         {

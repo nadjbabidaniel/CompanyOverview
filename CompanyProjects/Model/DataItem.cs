@@ -19,7 +19,8 @@ namespace CompanyProjects.Model
         [Required]
         public string DataProject { get; set; }
 
-        //public string TitleDataProject { get; set; }
+        [Required]
+        public string TitleDataProject { get; set; }
 
 
 

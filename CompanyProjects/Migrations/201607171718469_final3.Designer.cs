@@ -7,13 +7,13 @@ namespace CompanyProjects.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class addedUserForLogin3 : IMigrationMetadata
+    public sealed partial class final3 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(addedUserForLogin3));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(final3));
         
         string IMigrationMetadata.Id
         {
-            get { return "201607011450174_addedUserForLogin3"; }
+            get { return "201607171718469_final3"; }
         }
         
         string IMigrationMetadata.Source

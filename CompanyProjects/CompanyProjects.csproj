@@ -80,6 +80,9 @@
     <Compile Include="ChangeCompany.xaml.cs">
       <DependentUpon>ChangeCompany.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ChangeDetailsAndPassword.xaml.cs">
+      <DependentUpon>ChangeDetailsAndPassword.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ChangeProject.xaml.cs">
       <DependentUpon>ChangeProject.xaml</DependentUpon>
     </Compile>
@@ -90,9 +93,17 @@
       <DependentUpon>EditDataEntry.xaml</DependentUpon>
     </Compile>
     <Compile Include="IHavePassword.cs" />
-    <Compile Include="Migrations\201607121205215_changedTextForDataEntry.cs" />
-    <Compile Include="Migrations\201607121205215_changedTextForDataEntry.Designer.cs">
-      <DependentUpon>201607121205215_changedTextForDataEntry.cs</DependentUpon>
+    <Compile Include="Migrations\201607171149505_final.cs" />
+    <Compile Include="Migrations\201607171149505_final.Designer.cs">
+      <DependentUpon>201607171149505_final.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607171510109_final2.cs" />
+    <Compile Include="Migrations\201607171510109_final2.Designer.cs">
+      <DependentUpon>201607171510109_final2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607171718469_final3.cs" />
+    <Compile Include="Migrations\201607171718469_final3.Designer.cs">
+      <DependentUpon>201607171718469_final3.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\DataItem.cs" />
     <Compile Include="Registration.xaml.cs">
@@ -101,22 +112,6 @@
     <Compile Include="Loging.xaml.cs">
       <DependentUpon>Loging.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201606280847027_Initial.cs" />
-    <Compile Include="Migrations\201606280847027_Initial.Designer.cs">
-      <DependentUpon>201606280847027_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201607011434157_addedUserForLogin.cs" />
-    <Compile Include="Migrations\201607011434157_addedUserForLogin.Designer.cs">
-      <DependentUpon>201607011434157_addedUserForLogin.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201607011439028_addedUserForLogin2.cs" />
-    <Compile Include="Migrations\201607011439028_addedUserForLogin2.Designer.cs">
-      <DependentUpon>201607011439028_addedUserForLogin2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201607011450174_addedUserForLogin3.cs" />
-    <Compile Include="Migrations\201607011450174_addedUserForLogin3.Designer.cs">
-      <DependentUpon>201607011450174_addedUserForLogin3.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="RelayCommand.cs" />
@@ -124,6 +119,7 @@
     <Compile Include="ViewModel\AddDataEntryViewModel.cs" />
     <Compile Include="ViewModel\AddProjectViewModel.cs" />
     <Compile Include="ViewModel\ChangeCompanyViewModel.cs" />
+    <Compile Include="ViewModel\ChangeDetailsAndPasswordViewModel.cs" />
     <Compile Include="ViewModel\ChangeProjectViewModel.cs" />
     <Compile Include="ViewModel\CompaniesProjectsOverviewViewModel.cs" />
     <Compile Include="ViewModel\EditDataEntryViewModel.cs" />
@@ -143,6 +139,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ChangeCompany.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ChangeDetailsAndPassword.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -203,20 +203,14 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Migrations\201606280847027_Initial.resx">
-      <DependentUpon>201606280847027_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201607171149505_final.resx">
+      <DependentUpon>201607171149505_final.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607011434157_addedUserForLogin.resx">
-      <DependentUpon>201607011434157_addedUserForLogin.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201607171510109_final2.resx">
+      <DependentUpon>201607171510109_final2.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607011439028_addedUserForLogin2.resx">
-      <DependentUpon>201607011439028_addedUserForLogin2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607011450174_addedUserForLogin3.resx">
-      <DependentUpon>201607011450174_addedUserForLogin3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607121205215_changedTextForDataEntry.resx">
-      <DependentUpon>201607121205215_changedTextForDataEntry.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201607171718469_final3.resx">
+      <DependentUpon>201607171718469_final3.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

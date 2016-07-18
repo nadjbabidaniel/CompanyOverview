@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:CompanyProjects"
         mc:Ignorable="d"
          Background="AliceBlue"
-        Title="MainWindow" Height="Auto" Width="Auto" MinWidth="920" MinHeight="700" WindowState="Maximized" WindowStartupLocation="CenterScreen">
+        Title="MainWindow" Height="Auto" Width="Auto" MinWidth="920" MinHeight="700" WindowState="Maximized" WindowStartupLocation="CenterScreen" d:DesignWidth="1485.125" d:DesignHeight="736">
     <ScrollViewer VerticalScrollBarVisibility="Visible">
         <Grid>
             <Grid.RowDefinitions>
@@ -26,13 +26,25 @@
                         Command="{Binding AddDataEntryCommand}"
                         Width="150" 
                         HorizontalAlignment="Left" Margin="20,5,5,5" FontWeight="ExtraBlack" >
+                    <Button.Effect>
+                        <DropShadowEffect Color="Gray"
+                              Opacity=".50"
+                              ShadowDepth="8" />
+                    </Button.Effect>
+                </Button>
+            </StackPanel>
+            <Button Content="Promeni Lozinku" Grid.Row="0" Grid.Column="3"
+                        Command="{Binding ChangePasswordCommand}"
+                        Width="150" 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Center" 
+                        Margin="200,5,5,5" FontWeight="ExtraBold">
                 <Button.Effect>
                     <DropShadowEffect Color="Gray"
                               Opacity=".50"
                               ShadowDepth="8" />
                 </Button.Effect>
-                </Button>
-            </StackPanel>
+            </Button>
             <StackPanel Grid.Row="0" Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Center"  Width="Auto" Margin="0,0,20,0">
                 <Button Content="Kompanije|Projekti" 
                         Command="{Binding CompaniesProjectsCommand}"
@@ -40,11 +52,11 @@
                         HorizontalAlignment="Left" 
                         VerticalAlignment="Center" 
                         Margin="20,5,5,5" FontWeight="ExtraBold">
-                <Button.Effect>
-                    <DropShadowEffect Color="Gray"
+                    <Button.Effect>
+                        <DropShadowEffect Color="Gray"
                               Opacity=".50"
                               ShadowDepth="8" />
-                </Button.Effect>
+                    </Button.Effect>
                 </Button>
             </StackPanel>
 
@@ -55,11 +67,11 @@
                         HorizontalAlignment="Left" 
                         VerticalAlignment="Center" 
                         Margin="20,5,5,5" FontWeight="ExtraBold">
-                <Button.Effect>
-                    <DropShadowEffect Color="Gray"
+                    <Button.Effect>
+                        <DropShadowEffect Color="Gray"
                               Opacity=".50"
                               ShadowDepth="8" />
-                </Button.Effect>
+                    </Button.Effect>
                 </Button>
                 <Button Content="Pregled/Editovanje" 
                         Command="{Binding ViewEditDataEntryCommand}"
@@ -67,15 +79,15 @@
                         HorizontalAlignment="Left" 
                         VerticalAlignment="Center" 
                         Margin="20,5,5,5" FontWeight="ExtraBold">
-                <Button.Effect>
-                    <DropShadowEffect Color="Gray"
+                    <Button.Effect>
+                        <DropShadowEffect Color="Gray"
                               Opacity=".50"
                               ShadowDepth="8" />
-                </Button.Effect>
+                    </Button.Effect>
                 </Button>
             </StackPanel>
 
-            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="4" Width="Auto" Height="33" VerticalAlignment="Bottom" Margin="5,0,-283,5">
+            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="4" Width="Auto" Height="33" VerticalAlignment="Bottom" Margin="5,0,10,5">
                 <Label Content="Filter:" Width="50" />
                 <Label Content="Od: " Width="Auto" />
                 <DatePicker SelectedDate="{Binding StartFilterDate, Mode=TwoWay}" ToolTip="Unesite Datum Od kog zelite da Filtrirate Unose" Width="100" Height="22"/>
@@ -104,13 +116,13 @@
             </StackPanel>
 
 
-            <StackPanel Grid.Row="2" Grid.ColumnSpan="4" Orientation="Vertical" Width="Auto" ScrollViewer.CanContentScroll="True">
+            <StackPanel Grid.Row="2" Grid.ColumnSpan="4" Orientation="Vertical" ScrollViewer.CanContentScroll="True">
                 <DataGrid ItemsSource="{Binding AllDataEntries, Mode=TwoWay}"  
                   SelectedItem="{Binding GridSelectedItem, Mode=TwoWay}"
                   SelectionMode="Single"
                   SelectionUnit="FullRow"
                   Width="Auto" Height="Auto" AutoGenerateColumns="False" IsReadOnly="True">
-                   
+
                     <DataGrid.Resources>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
                             <Setter Property="Height" Value="35"/>
@@ -122,7 +134,7 @@
                             </Style.Triggers>
                         </Style>
                     </DataGrid.Resources>
-                    
+
                     <DataGrid.InputBindings>
                         <MouseBinding Gesture="LeftDoubleClick" Command="{Binding ViewEditDataEntryCommand}"/>
                     </DataGrid.InputBindings>
@@ -131,10 +143,10 @@
                         <DataGridTextColumn CanUserSort="True" Header="Datum" 
                                     Binding="{Binding Date, StringFormat={}{0:dd.MM.yyyy}}" Width="1*" />
                         <DataGridTextColumn Header="Naziv Kompanije" 
-                                    Binding="{Binding CompanyTitle}" CanUserSort="True" Width="1.5*" />
+                                    Binding="{Binding AppropriateProject.AppropriateCompany.TitleCompany}" CanUserSort="True" Width="1.5*" />
                         <DataGridTextColumn Header="Naziv Projekta" 
-                                    Binding="{Binding ProjectTitle}" CanUserSort="True" Width="1.5*" />
-                       
+                                    Binding="{Binding AppropriateProject.TitleProject}" CanUserSort="True" Width="1.5*" />
+
                         <DataGridTemplateColumn Width="5*" Header="Text Opis">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
@@ -143,11 +155,10 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn Width="1.5*" Header="Fajl">
+                        <DataGridTemplateColumn Width="1.5*" Header="Broj fajlova">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Command="{Binding Path=DataContext.ActivateFileCommand, RelativeSource= {RelativeSource FindAncestor,AncestorType={x:Type DataGrid}}}" Content="{Binding TitleDataProject}">
-                                    </Button>
+                                    <TextBlock Text="{Binding AppropriateDataItems.Count}" TextWrapping="Wrap" MaxHeight="50" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>

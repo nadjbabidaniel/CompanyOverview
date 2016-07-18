@@ -17,7 +17,8 @@ namespace CompanyProjects.DataAccess
             {
                 _dataEntry = new List<DataEntry>();
             }
-            _dataEntry = db.DataEntry.ToList();
+            _dataEntry = db.DataEntry.Include("AppropriateProject").ToList();
+            _dataEntry = db.DataEntry.Include("AppropriateDataItems").ToList();
         }
         public List<DataEntry> GetDataEntry()
         {
@@ -40,7 +41,6 @@ namespace CompanyProjects.DataAccess
         }
         public bool RemoveDataEntry(DataEntry dataEntryToAdd)
         {
-
             _dataEntry.Remove(dataEntryToAdd);
             try
             {
@@ -55,56 +55,37 @@ namespace CompanyProjects.DataAccess
         }
         public bool UpdateDataEntry(DataEntry CurrentGridSelectedItem)
         {
-            var query = (from r in db.DataEntry where r.DataEntryId == CurrentGridSelectedItem.DataEntryId select r);
-            foreach (var q in query)
+            var q = db.DataEntry.Where(c => c.DataEntryId == CurrentGridSelectedItem.DataEntryId).SingleOrDefault();
+
+            q.Date = CurrentGridSelectedItem.Date;
+            q.ProjectId = CurrentGridSelectedItem.ProjectId;
+            q.TextInput = CurrentGridSelectedItem.TextInput;
+
+            var forDeleting = new List<DataItem>();
+            foreach (var item in q.AppropriateDataItems)
             {
-                q.CompanyId = CurrentGridSelectedItem.CompanyId;
-                //q.CompanyTitle = CurrentGridSelectedItem.CompanyTitle;
-                //q.DataProject = CurrentGridSelectedItem.DataProject;
-                q.Date = CurrentGridSelectedItem.Date;
-                q.ProjectId = CurrentGridSelectedItem.ProjectId;
-                //q.ProjectTitle = CurrentGridSelectedItem.ProjectTitle;
-                q.TextInput = CurrentGridSelectedItem.TextInput;
-                //q.TitleDataProject = CurrentGridSelectedItem.TitleDataProject;
+                if (!(CurrentGridSelectedItem.AppropriateDataItems.Any(c => c.DataItemId == item.DataItemId)))
+                {
+                    forDeleting.Add(item);
+                }
             }
-            try
+            foreach (var item in forDeleting)
             {
-                db.SaveChanges();
-            }
-            catch
-            {
-                return false;
+                db.DataItem.Remove(item);
             }
 
-            return true;
-        }
-        public bool UpdateDataEntryCompanyName(Company CurrentGridSelectedItem)
-        {
-            var query = (from r in db.DataEntry where r.CompanyId == CurrentGridSelectedItem.CompanyId select r);
+            foreach (var item in CurrentGridSelectedItem.AppropriateDataItems)
+            {
+                //DataItem existingItem = null;
+                //existingItem = q.AppropriateDataItems.Where(c => c.DataItemId == item.DataItemId).SingleOrDefault();//whyyyy????wont work
+                //if (existingItem == null)
 
-            foreach (var q in query)
-            {                
-                q.CompanyTitle = CurrentGridSelectedItem.TitleCompany;                
-            }
-            try
-            {
-                db.SaveChanges();
-            }
-            catch
-            {
-                return false;
+                if (item.DataItemId == 0)
+                {
+                    q.AppropriateDataItems.Add(item);
+                }
             }
 
-            return true;
-        }
-        public bool UpdateDataEntryProjectName(Project CurrentGridSelectedItem)
-        {
-            var query = (from r in db.DataEntry where r.ProjectId == CurrentGridSelectedItem.ProjectId select r);
-
-            foreach (var q in query)
-            {
-                q.ProjectTitle = CurrentGridSelectedItem.TitleProject;
-            }
             try
             {
                 db.SaveChanges();

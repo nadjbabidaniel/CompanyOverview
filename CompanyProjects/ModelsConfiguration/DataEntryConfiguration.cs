@@ -14,8 +14,13 @@ namespace CompanyProjects.ModelsConfiguration
         {
             //this.HasRequired(a => a.AppropriateCompany)
             //               .WithMany(r => r.AppropriateDataEntries)
-            //               .HasForeignKey(u => u.FKCompanyId)
-            //               .WillCascadeOnDelete(true);
+            //               .HasForeignKey(u => u.CompanyId)
+            //               .WillCascadeOnDelete(false);
+
+            this.HasRequired(a => a.AppropriateProject)
+                           .WithMany(r => r.AppropriateDataEntries)
+                           .HasForeignKey(u => u.ProjectId)
+                           .WillCascadeOnDelete(true);
         }
     }
 }

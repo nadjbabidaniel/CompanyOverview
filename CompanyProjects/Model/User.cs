@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CompanyProjects.Model
 {
-    class User
+    public class User
     {
         // --- PRIMARNI KLJUCEVI ----
         public int UserId { get; set; }

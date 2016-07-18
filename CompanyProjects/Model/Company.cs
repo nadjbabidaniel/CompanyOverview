@@ -22,7 +22,8 @@ namespace CompanyProjects.Model
         
         // --- VIRTUALNI NAVIGACIONI OBJEKTI ---
         public virtual IList<Project> AppropriateProjects { get; set; }
-       
+
+        //public virtual IList<DataEntry> AppropriateDataEntries { get; set; }
 
     }
 }
